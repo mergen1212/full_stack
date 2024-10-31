@@ -5,9 +5,6 @@
 </script>
 
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5">
-
-
-	
 	<div class="text-center mb-5">
 		{#if data && data.InfoAnime && data.InfoAnime.data}
 			<h1 class="text-2xl font-bold mb-2">{data.InfoAnime.data.title}</h1>
@@ -15,7 +12,11 @@
 			<p class="text-lg">Loading...</p>
 		{/if}
 		{#if data && data.InfoAnime && data.InfoAnime.data}
-			<img src={data.InfoAnime.data.images.webp.image_url} alt="Anime Image" class="max-w-full h-auto mb-2" />
+			<img
+				src={data.InfoAnime.data.images.webp.image_url}
+				alt="Anime Image"
+				class="max-w-full h-auto mb-2"
+			/>
 		{:else}
 			<p class="text-lg">Loading...</p>
 		{/if}

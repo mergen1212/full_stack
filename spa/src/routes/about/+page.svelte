@@ -1,18 +1,34 @@
-<script>
+<script lang="ts">
+	type items = item[];
+
+	interface item {
+		id: number;
+		name: string;
+		img: string;
+	}
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
+	let data: items;
+	onMount(async () => {
+		data = (await fetch('http://192.168.3.3/api/items').then((x) => x.json())) as items;
+	});
 </script>
 
 <svelte:head>
 	<title>About | My Anime App</title>
 	<meta name="description" content="Learn more about our Anime application" />
 </svelte:head>
+{#each data as i}
+	<p>{i.name}</p>
+	<img class="max-w-sm" src={i.img} />
+{/each}
 
 <div in:fade={{ duration: 300 }} class="max-w-2xl mx-auto p-6">
 	<h1 class="text-4xl font-bold text-pink-600">About</h1>
 	<p class="mt-4 text-gray-800">Welcome to the About page of our Anime application!</p>
 	<p class="mt-2 text-gray-700">
-		Anime is a captivating form of entertainment that combines art, storytelling, and music to create
-		immersive experiences. It has a rich history and a diverse range of genres.
+		Anime is a captivating form of entertainment that combines art, storytelling, and music to
+		create immersive experiences. It has a rich history and a diverse range of genres.
 	</p>
 	<h2 class="mt-6 text-2xl font-semibold text-purple-600">Key Features of Our Anime App:</h2>
 	<ul class="list-disc list-inside mt-2 text-gray-700">
@@ -27,4 +43,3 @@
 		and the use of transitions, all while celebrating the world of Anime.
 	</p>
 </div>
-
