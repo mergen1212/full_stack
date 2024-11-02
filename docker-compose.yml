@@ -3,6 +3,7 @@ networks:
 services:
   nginx:
       image: nginx:stable-alpine
+      container_name: fullapp-nginx
       ports:
         - "80:80"
       volumes:

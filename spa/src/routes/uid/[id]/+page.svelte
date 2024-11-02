@@ -1,9 +1,15 @@
 <script lang="ts">
+	import Search from '$lib/components/Search.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 </script>
 
+<svelte:head>
+	<title>Anime-flex {data.InfoAnime.data.title}</title>
+	<meta name="description" content={data.InfoAnime.data.synopsis} />
+</svelte:head>
+<Search />
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5">
 	<div class="text-center mb-5">
 		{#if data && data.InfoAnime && data.InfoAnime.data}

@@ -6,7 +6,10 @@
 
 	let { data }: { data: PageData } = $props();
 </script>
-
+<svelte:head>
+	<title>Anime-flex</title>
+	<meta name="description" content="Anime innformation" />
+</svelte:head>
 <Search />
 <Info />
 <CurrentAnimeSisson Anime={data.InfoAnime} />
