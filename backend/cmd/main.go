@@ -7,9 +7,8 @@ import (
 
 func main() {
 	r:=http.NewServeMux()
-	r.HandleFunc("GET /items", handlers.GetItems)
-
-	err := http.ListenAndServe("0.0.0.0:8080", r)
+	r.HandleFunc("/ws", handlers.HandlerFuncWS)
+	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		panic(err)
 	}

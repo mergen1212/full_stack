@@ -1,29 +1,37 @@
 package handlers
 
 import (
-	"apiapp/internal/models"
-	"fmt"
-	"math/rand"
+	"context"
+	"log"
 	"net/http"
 	"time"
-	"github.com/goccy/go-json"
+
+	"github.com/coder/websocket"
+	"github.com/coder/websocket/wsjson"
 )
+type Item struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Img  string `json:"img"`
+}
 
-func GetItems(w http.ResponseWriter, r *http.Request) {
-	items := []models.Item{
-		{ID: 1, Name: "Docker", Img: "https://static-00.iconduck.com/assets.00/docker-icon-2048x2048-5mc7mvtn.png"},
-		{ID: 2, Name: "Nginx", Img: "https://www.svgrepo.com/show/373924/nginx.svg"},
-		{ID: 3, Name: "GitHub", Img: "https://cdn-icons-png.flaticon.com/512/25/25231.png"},
-	}
-
-	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
-	rng.Shuffle(len(items), func(i, j int) {
-		items[i], items[j] = items[j], items[i]
-	})
-
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(items)
+func HandlerFuncWS(w http.ResponseWriter, r *http.Request) {
+	c, err := websocket.Accept(w, r, nil)
+	log.Println("New connection")
 	if err != nil {
-		fmt.Fprintf(w, "err json Encode")
+		log.Println("accept:", err)
+		return
 	}
+	defer c.CloseNow()
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+	var v Item
+	err = wsjson.Read(ctx, c, &v)
+	if err != nil {
+		log.Println("read:", err)
+		return
+	}
+	log.Printf("received: %v", v)
+
+	c.Close(websocket.StatusNormalClosure, "")
 }
