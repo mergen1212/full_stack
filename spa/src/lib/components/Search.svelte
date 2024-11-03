@@ -12,7 +12,6 @@
 		const data = (await response.json()) as AnimeList;
 		searchResults = data.data;
 	}
-	console.log(searchResults);
 </script>
 
 <div class="relative">

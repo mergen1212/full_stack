@@ -1,4 +1,3 @@
-import type { Daum } from '$lib/entity';
 import type { LoadEvent } from '@sveltejs/kit';
 
 export interface Root {
@@ -151,6 +150,7 @@ export const load = async ({ fetch, params }: LoadEvent) => {
 	const res = await fetch(`https://api.jikan.moe/v4/anime/` + params.id);
 	const data = (await res.json()) as Root;
 	return {
-		InfoAnime: data
+		i:{InfoAnime: data},
+		maxAge: 60
 	};
 };

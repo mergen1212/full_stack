@@ -12,4 +12,4 @@
 </svelte:head>
 <Search />
 <Info />
-<CurrentAnimeSisson Anime={data.InfoAnime} />
+<CurrentAnimeSisson Anime={data.props.data} />

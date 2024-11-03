@@ -1,6 +1,3 @@
-<script lang="ts">
-</script>
-
 <div class="border-t border-gray-300">
 	<div class="container mx-auto px-4">
 		<div class="flex">

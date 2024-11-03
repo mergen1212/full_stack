@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import type { AnimeList } from '$lib/entity';
 </script>
 
 <header class="flex bg-gray-800 text-white p-2">
