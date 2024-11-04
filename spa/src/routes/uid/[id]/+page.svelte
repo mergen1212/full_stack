@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Search from '$lib/components/Search.svelte';
+	import VideoPlayer from '$lib/components/VideoPlayer.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

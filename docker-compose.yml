@@ -2,7 +2,7 @@ networks:
   dev:
 services:
   nginx:
-      image: nginx:stable-alpine
+      image: nginx:alpine
       container_name: fullapp-nginx
       ports:
         - "80:80"
