@@ -26,6 +26,9 @@ func NewHandler(secretKey string, repo repository.UserRepo) *Handler {
 }
 func (h *Handler) InitRoutes() *http.ServeMux {
 	r := http.NewServeMux()
+	r.HandleFunc("GET /",func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("jjjj"))
+	})
 	r.HandleFunc("POST /auth", h.AuthUser)
 	r.HandleFunc("POST /reg", h.RegUser)
 	r.HandleFunc("POST /update",h.UpdateUser)
