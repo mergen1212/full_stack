@@ -1,27 +1,13 @@
 <script lang="ts">
-	type items = item[];
-
-	interface item {
-		id: number;
-		name: string;
-		img: string;
-	}
-	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	let data: items;
-	onMount(async () => {
-		data = (await fetch('http://192.168.3.3/api/items').then((x) => x.json())) as items;
-	});
+	
 </script>
 
 <svelte:head>
 	<title>About | My Anime App</title>
 	<meta name="description" content="Learn more about our Anime application" />
 </svelte:head>
-{#each data as i}
-	<p>{i.name}</p>
-	<img class="max-w-sm" src={i.img} />
-{/each}
+
 
 <div in:fade={{ duration: 300 }} class="max-w-2xl mx-auto p-6">
 	<h1 class="text-4xl font-bold text-pink-600">About</h1>
