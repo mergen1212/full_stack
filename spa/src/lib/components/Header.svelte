@@ -16,7 +16,7 @@
 				<a
 					href="{base}/about"
 					class="text-white no-underline transition-colors duration-200 hover:text-gray-300"
-					>Контакты</a
+					>web</a
 				>
 			</li>
 		</ul>

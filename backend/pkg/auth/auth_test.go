@@ -17,9 +17,6 @@ func getSecretKeyFromEnv() string {
 
 func TestGenerateJWT(t *testing.T) {
 	secretKey := getSecretKeyFromEnv()
-	if secretKey == "" {
-		secretKey = "default_secret_key"
-	}
 	username := "testuser"
 	role := "admin"
 	expirationTime := time.Hour
