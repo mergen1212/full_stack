@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Anime-flex {info}</title>
+	<title>Anime-flex {info.data.title}</title>
 	<meta name="description" content={info.data.synopsis} />
 </svelte:head>
 <Search />
