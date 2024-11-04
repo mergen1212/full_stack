@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -15,11 +16,11 @@ type JWTClaims struct {
 }
 
 // GenerateJWT создает новый JWT токен для указанного пользователя.
-func GenerateJWT(username string,role string, secretKey string, expirationTime time.Duration) (string, error) {
+func GenerateJWT(username string, role string, secretKey string, expirationTime time.Duration) (string, error) {
 
 	claims := &JWTClaims{
 		Username: username,
-		Role: role,
+		Role:     role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expirationTime)),
 		},
@@ -52,4 +53,24 @@ func ValidateJWT(tokenString string, secretKey string) (*JWTClaims, error) {
 		return nil, errors.New("invalid token")
 	}
 	return claims, nil
+}
+
+func AddJWTCookie(w http.ResponseWriter, token string) {
+	cookie := &http.Cookie{
+		Name:     "jwt",
+		Value:    token,
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   true,
+		SameSite: http.SameSiteStrictMode,
+	}
+	http.SetCookie(w, cookie)
+}
+func GetJWTCookie(r *http.Request) (error,string){
+	cookie,err:=r.Cookie("jwt")
+	if err!=nil{
+		return err,""
+	}
+	val:=cookie.Value
+	return nil,val
 }

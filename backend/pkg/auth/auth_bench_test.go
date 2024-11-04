@@ -10,7 +10,8 @@ const (
 	role           = "admin"
 	expirationTime = 1 * time.Hour
 )
-var secretKey string=getSecretKeyFromEnv()
+
+var secretKey string = getSecretKeyFromEnv()
 
 func BenchmarkGenerateJWT(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -35,4 +36,3 @@ func BenchmarkValidateJWT(b *testing.B) {
 		}
 	}
 }
-
