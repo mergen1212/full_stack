@@ -42,6 +42,7 @@ func (h *Handler) AuthUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	auth.AddJWTCookie(w, t)
+	
 	w.WriteHeader(http.StatusOK)
 }
 

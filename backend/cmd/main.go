@@ -17,6 +17,9 @@ var secretKey = os.Getenv("secretKey")
 
 func main() {
 	url := os.Getenv("TOKEN")
+	if url==""{
+		panic("uykuykyyukukkukujhtg")
+	}
 	log.Print(url)
 	db, err := sql.Open("libsql", url)
 	if err != nil {
