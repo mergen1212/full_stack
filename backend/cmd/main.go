@@ -16,21 +16,8 @@ var secretKey = os.Getenv("secretKey")
 
 
 func main() {
-	url := os.Getenv("TOKEN")
-	if url==""{
-		panic("vfghggfv")
-	}
-	log.Print(url)
-	db, err := sql.Open("libsql", url)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "failed to open db %s: %s", url, err)
-		os.Exit(1)
-	}
-	defer db.Close()
-	
-	
-	repo := repository.NewUserRepo(db)
-	h := handlers.NewHandler("ccc", repo)
-	r := h.InitRoutes()
-	http.ListenAndServe(":8080", r)
+	http.HandleFunc("GET /",func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w,"oio")
+	})
+	http.ListenAndServe(":8080", nil)
 }
