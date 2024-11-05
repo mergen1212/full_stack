@@ -38,5 +38,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
+      - name: Set up Docker Buildx
+        run: export TOKEN="${{ secrets.TOKEN }}"
+
       - name: Deploy with docker-compose
-        run:  TOKEN="${{ secrets.TOKEN }}" docker compose up --build -d
+        run:  docker compose up --build -d
