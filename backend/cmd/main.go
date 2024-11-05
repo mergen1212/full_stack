@@ -1,11 +1,7 @@
 package main
 
 import (
-	"apiapp/internal/handlers"
-	"apiapp/internal/repository"
-	"database/sql"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
