@@ -4,7 +4,7 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-	const info=data.i.InfoAnime
+	const info = data.i.InfoAnime;
 </script>
 
 <svelte:head>

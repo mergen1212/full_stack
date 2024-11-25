@@ -6,9 +6,9 @@ export const load = async ({ fetch }: LoadEvent) => {
 	const data = (await res.json()) as AnimeList;
 	return {
 		props: {
-            data
-        },
-        // Set the maxAge for ISR
-        maxAge: 60 // Cache for 60 seconds
-    };
+			data
+		},
+		// Set the maxAge for ISR
+		maxAge: 60 // Cache for 60 seconds
+	};
 };

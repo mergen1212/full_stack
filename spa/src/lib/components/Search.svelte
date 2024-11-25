@@ -1,27 +1,40 @@
 <script lang="ts">
-	import type { AnimeList } from "$lib/entity";
-	import { search } from "./search";
-	let input: string = $state("");
+	import type { AnimeList } from '$lib/entity';
+	import { search } from './search';
+	let input: string = $state('');
 	const fetchAnime = async (query: string): Promise<AnimeList> => {
-	  const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}`;
-	  const res = await fetch(url);
-	  if (!res.ok) {
-		throw new Error('Network response was not ok');
-	  }
-	  return res.json();
+		const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}`;
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error('Network response was not ok');
+		}
+		return res.json();
 	};
-	
-	const searchAnime = () => {
-	  if (input) {
-		search.update((n) =>fetchAnime(input));
-	  }else{
-		search.update((n) => null);
-	  }
-	};
-  </script>
 
+	const searchAnimeEvent = (e: KeyboardEvent) => {
+		switch (e.key) {
+			case 'Enter':
+				searchAnime();
+				break;
+			case 'Escape':
+				search.update((n) => null);
+				break;
+			default:
+				break;
+		}
+	};
+	$effect(() => {
+		if (input===''){
+			search.update((n) => null);
+		}
+	})
+	const searchAnime = () => {
+		search.update((n) => fetchAnime(input));
+	};
+</script>
+
+<svelte:window on:keydown={searchAnimeEvent} />
 <div class="relative">
-	
 	<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 		<svg
 			class="w-4 h-4 text-gray-500"

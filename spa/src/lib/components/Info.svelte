@@ -4,7 +4,6 @@
 			<div class="w-full">
 				<h1 class="text-2xl mb-2 font-normal">Anime-flex — смотреть аниме онлайн бесплатно</h1>
 				<div class="description_text">
-					
 					<p>
 						Многие поклонники любят <strong class="font-semibold">смотреть аниме онлайн</strong>,
 						однако для этого часто приходится пользоваться несколькими источниками, поскольку ни
