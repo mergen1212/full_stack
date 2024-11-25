@@ -1,18 +1,24 @@
 <script lang="ts">
-	import type { AnimeList, Daum } from '$lib/entity';
-	let search = $state('');
-	let searchResults: Daum[] = [];
-	async function handleSearch() {
-		const response = await fetch(`https://api.jikan.moe/v4/anime/?q=${search}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const data = (await response.json()) as AnimeList;
-		searchResults = data.data;
-	}
-</script>
+	import type { AnimeList } from "$lib/entity";
+	import { search } from "./search";
+	let input: string = $state("");
+	const fetchAnime = async (query: string): Promise<AnimeList> => {
+	  const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}`;
+	  const res = await fetch(url);
+	  if (!res.ok) {
+		throw new Error('Network response was not ok');
+	  }
+	  return res.json();
+	};
+	
+	const searchAnime = () => {
+	  if (input) {
+		search.update((n) =>fetchAnime(input));
+	  }else{
+		search.update((n) => null);
+	  }
+	};
+  </script>
 
 <div class="relative">
 	
@@ -35,12 +41,12 @@
 	</div>
 	<input
 		type="search"
-		bind:value={search}
+		bind:value={input}
 		placeholder="Search..."
 		class="w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
 	/>
 	<button
-		onclick={handleSearch}
+		onclick={searchAnime}
 		class="absolute right-2.5 bottom-2.5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
 	>
 		Search
