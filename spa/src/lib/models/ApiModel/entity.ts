@@ -2,6 +2,9 @@ export interface AnimeList {
 	pagination: Pagination;
 	data: Daum[];
 }
+export interface StoreVal {
+	value: Promise<AnimeList> | null;
+}
 
 export interface Pagination {
 	last_visible_page: number;

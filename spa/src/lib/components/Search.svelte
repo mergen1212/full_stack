@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { AnimeList } from '$lib/entity';
-	import { search } from './search';
+	import type { AnimeList } from '$lib/models/ApiModel/entity';
+	import { search } from '$lib/store/search.svelte';
 	let input: string = $state('');
 	const fetchAnime = async (query: string): Promise<AnimeList> => {
 		const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}`;
@@ -17,19 +17,21 @@
 				searchAnime();
 				break;
 			case 'Escape':
-				search.update((n) => null);
+				search.value = null;
 				break;
 			default:
 				break;
 		}
 	};
+
 	$effect(() => {
-		if (input===''){
-			search.update((n) => null);
+		if (input === '') {
+			search.value = null;
 		}
-	})
+	});
+
 	const searchAnime = () => {
-		search.update((n) => fetchAnime(input));
+		search.value = fetchAnime(input);
 	};
 </script>
 

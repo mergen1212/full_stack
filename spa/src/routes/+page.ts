@@ -1,4 +1,4 @@
-import type { AnimeList } from '$lib/entity';
+import type { AnimeList } from '$lib/models/ApiModel/entity';
 import type { LoadEvent } from '@sveltejs/kit';
 
 export const load = async ({ fetch }: LoadEvent) => {
