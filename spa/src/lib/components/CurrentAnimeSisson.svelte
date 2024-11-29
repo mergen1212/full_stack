@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	
 	import { fade, fly } from 'svelte/transition';
 	
 	import { search } from '$lib/store/search.svelte';
@@ -11,7 +11,7 @@
 <div class="pb-4 bg-gray-100 border-t border-b border-gray-300">
 	<div class="mx-auto px-4 w-full max-w-screen-lg">
 		<div class="grid gap-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			{#if search.value}
+			{#if search.value!==null}
 				{#await search.value}
 					<div class="flex justify-center items-center h-64">
 						<div

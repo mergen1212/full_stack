@@ -1,22 +1,10 @@
-# Use the official Node.js image as a base
-FROM node:22 AS build
-
-# Set the working directory
+FROM oven/bun:latest AS build
 WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
 COPY . .
 
-# Build the SvelteKit application
-RUN npm run build
+RUN bun install
+RUN bun run build
 
-# Use Nginx to serve the application
 FROM nginx:alpine
 
 # Copy the built application from the previous stage
