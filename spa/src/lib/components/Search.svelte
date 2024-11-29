@@ -2,6 +2,7 @@
 	import type { AnimeList } from '$lib/models/ApiModel/entity';
 	import { search } from '$lib/store/search.svelte';
 	let input: string = $state('');
+	
 	const fetchAnime = async (query: string): Promise<AnimeList> => {
 		const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}`;
 		const res = await fetch(url);
@@ -10,7 +11,7 @@
 		}
 		return res.json();
 	};
-
+	
 	const searchAnimeEvent = (e: KeyboardEvent) => {
 		switch (e.key) {
 			case 'Enter':
@@ -23,11 +24,20 @@
 				break;
 		}
 	};
-
 	$effect(() => {
-		if (input === '') {
-			search.value = null;
-		}
+		input
+		const id = setTimeout(() => {
+			
+			if (input!=='') {
+				
+				search.value = fetchAnime(input);
+			}
+		}, 1500);
+
+		return () => {
+			
+			clearTimeout(id)
+		};
 	});
 
 	const searchAnime = () => {

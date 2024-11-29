@@ -1,8 +1,8 @@
 FROM oven/bun:latest AS build
 WORKDIR /app
-COPY . .
-
+COPY package.json bun.lockb ./
 RUN bun install
+COPY . .
 RUN bun run build
 
 FROM nginx:alpine

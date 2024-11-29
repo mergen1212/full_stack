@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	
 </script>
 
 <header class="flex bg-gray-800 text-white p-2">
 	<nav class="mt-2">
 		<ul class="flex list-none p-0 m-0">
+		
 			<li class="mx-4">
 				<a
 					href="{base}/"

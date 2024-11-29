@@ -37,6 +37,12 @@
 							</div>
 						{/each}
 					{/if}
+				{:catch error}
+					<div class="flex justify-center items-center h-64">
+						<div class="text-center">
+							<p>Error: {error.message}</p>
+						</div>
+					</div>
 				{/await}
 			{:else if search.value === null}
 				{#each Anime.data as i}
