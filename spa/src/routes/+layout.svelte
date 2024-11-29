@@ -7,6 +7,7 @@
 <svelte:head>
 	<title>Anime</title>
 	<meta name="description" content="Anime innformation" />
+	<link rel="icon" href="/favicon.png" />
 </svelte:head>
 
 <Header />
