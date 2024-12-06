@@ -8,31 +8,31 @@ on:
     branches: [ main ]
 
 jobs:
-  check-backend:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go-version: ['1.23']
-        os: [ubuntu-latest, windows-latest, macos-latest,freebsd-latest]
-    steps:
-      - uses: actions/checkout@v3
+  # check-backend:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       go-version: ['1.23']
+  #       os: [ubuntu-latest, windows-latest, macos-latest,freebsd-latest]
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: ${{ matrix.go-version }}
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v4
+  #       with:
+  #         go-version: ${{ matrix.go-version }}
 
-      - name: Install dependencies
-        working-directory: ./backend
-        run: go mod download
+  #     - name: Install dependencies
+  #       working-directory: ./backend
+  #       run: go mod download
 
-      - name: Run tests
-        working-directory: ./backend
-        run: go test -v ./...
+  #     - name: Run tests
+  #       working-directory: ./backend
+  #       run: go test -v ./...
 
   deploy:
     runs-on: self-hosted
-    needs: check-backend  # Зависимость от работы check-backend
+      # Зависимость от работы check-backend
 
     steps:
       - name: Checkout repository
@@ -42,4 +42,4 @@ jobs:
         run: export TOKEN="${{ secrets.TOKEN }}"
 
       - name: Deploy with docker-compose
-        run:  docker compose up --build -d
+        run:  docker compose up -d

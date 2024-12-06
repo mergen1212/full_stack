@@ -1,29 +1,25 @@
 package main
 
 import (
-	
+	"apiapp/internal/repository"
+	"apiapp/internal/router"
+	"apiapp/internal/service"
+	"database/sql"
 	"net/http"
-	"os"
 
-	"github.com/prometheus/client_golang/prometheus/collectors"
-
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	_ "github.com/lib/pq"
 )
 
-var secretKey = os.Getenv("secretKey")
-
-
 func main() {
-	reg := prometheus.NewRegistry()
+	connStr := "postgres://postgres:postgres@postgres/fullapp?sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err!=nil{
+		panic(err)
+	}
+	repo:=repository.NewUserRepo(db)
+	tok:=repository.NewTokenRepo(db)
+	userserv:=service.NewService(repo,tok)
 
-	// Add go runtime metrics and process collectors.
-	reg.MustRegister(
-		collectors.NewGoCollector(),
-		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
-	)
-
-	// Expose /metrics HTTP endpoint using the created custom registry.
-	http.Handle("/metrics", promhttp.HandlerFor(reg, promhttp.HandlerOpts{Registry: reg}))
-	http.ListenAndServe(":8080", nil)
+	r:=router.NewRouterUser(userserv)
+	http.ListenAndServe(":8080", r)
 }

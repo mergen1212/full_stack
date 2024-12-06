@@ -12,15 +12,17 @@ import (
 type JWTClaims struct {
 	Username string `json:"username"`
 	Role     string `json:"role"`
+	ID       int    `json:"id"`
 	jwt.RegisteredClaims
 }
 
 // GenerateJWT создает новый JWT токен для указанного пользователя.
-func GenerateJWT(username string, role string, secretKey string, expirationTime time.Duration) (string, error) {
+func GenerateJWT(username string, role string,id int, secretKey string, expirationTime time.Duration) (string, error) {
 
 	claims := &JWTClaims{
 		Username: username,
 		Role:     role,
+		ID:       id,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expirationTime)),
 		},
@@ -66,11 +68,11 @@ func AddJWTCookie(w http.ResponseWriter, token string) {
 	}
 	http.SetCookie(w, cookie)
 }
-func GetJWTCookie(r *http.Request) (error,string){
+func GetJWTCookie(r *http.Request) (string,error){
 	cookie,err:=r.Cookie("jwt")
 	if err!=nil{
-		return err,""
+		return "",err
 	}
 	val:=cookie.Value
-	return nil,val
+	return val,err
 }

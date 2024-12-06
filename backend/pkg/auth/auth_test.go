@@ -20,8 +20,8 @@ func TestGenerateJWT(t *testing.T) {
 	username := "testuser"
 	role := "admin"
 	expirationTime := time.Hour
-
-	token, err := GenerateJWT(username, role, secretKey, expirationTime)
+	id:=1
+	token, err := GenerateJWT(username, role,id, secretKey, expirationTime)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
@@ -36,9 +36,9 @@ func TestValidateJWT(t *testing.T) {
 	username := "testuser"
 	role := "admin"
 	expirationTime := time.Hour
-
+	id:=1
 	// Генерируем токен
-	token, err := GenerateJWT(username, role, secretKey, expirationTime)
+	token, err := GenerateJWT(username, role,id, secretKey, expirationTime)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
@@ -76,10 +76,11 @@ func TestValidateJWTExpiredToken(t *testing.T) {
 	secretKey := getSecretKeyFromEnv()
 	username := "testuser"
 	role := "admin"
+	id:= 1
 	expirationTime := -time.Hour // Токен будет просрочен
 
 	// Генерируем токен
-	token, err := GenerateJWT(username, role, secretKey, expirationTime)
+	token, err := GenerateJWT(username, role,id, secretKey, expirationTime)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
