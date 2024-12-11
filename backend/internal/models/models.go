@@ -1,26 +1,22 @@
 package models
 
-type Item struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-	Img  string `json:"img"`
-}
-
+import (
+    "time"
+)
+//
 type User struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Img      string `json:"img"`
-	Email    string `json:"email"`
-	HashPass string `json:"hash_password"`
+    ID          int       `json:"id"`
+    Username    string    `json:"username"`
+    Email       string    `json:"email"`
+    PasswordHash string    `json:"pass"`
+    CreatedAt   time.Time `json:"created_at"`
+    UpdatedAt   time.Time `json:"updated_at"`
 }
 
-type UserAuth struct {
-	Email    string `json:"email"`
-	HashPass string `json:"hash_password"`
-}
-
-type UserReg struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
-	Pass  string `json:"password"`
+type Token struct {
+    ID        int       `json:"id"`
+    UserID    int       `json:"user_id"`
+    Token     string    `json:"token"`
+    CreatedAt time.Time `json:"created_at"`
+    UpdatedAt time.Time `json:"updated_at"`
 }
